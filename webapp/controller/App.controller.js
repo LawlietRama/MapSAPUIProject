@@ -1,12 +1,14 @@
 sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast",
+    "sap/ui/model/resource/ResourceModel",
   ],
-  function (Controller, MessageToast, JSONModel) {
+  function (BaseController, JSONModel, MessageToast, ResourceModel) {
     "use strict";
-    return Controller.extend("sap.ui.demo.walkthrough.App", {
+
+    return BaseController.extend("btp.project1.controller.controller.App", {
       onInit: function () {
         var oData = {
           recipient: {
@@ -16,9 +18,9 @@ sap.ui.define(
         var oModel = new JSONModel(oData);
         this.getView().setModel(oModel);
       },
-      onShowHello: function () {
-        //Show native or vanilla JS alert
-        MessageToast.show("Si paling halo");
+
+      onClick: function () {
+        MessageToast.show("Hello World");
       },
     });
   }
