@@ -17,10 +17,25 @@ sap.ui.define(
         };
         var oModel = new JSONModel(oData);
         this.getView().setModel(oModel);
+        //set i18n model on view
+        var i18nModel = new ResourceModel({
+          bundleName: "btp.project1.i18n.i18n",
+          supportedLocales: [""],
+          fallbackLocale: "",
+        });
+
+        this.getView().setModel(i18nModel, "i18n");
       },
 
       onClick: function () {
-        MessageToast.show("Hello World");
+        // read msg from i18n model
+        var oBundle = this.getView().getModel("i18n").getResourceBundle();
+        var sRecipient = this.getView()
+          .getModel()
+          .getProperty("/recipient/name");
+        var sMsg = oBundle.getText("helloText", [sRecipient]);
+        //Show Message
+        MessageToast.show(sMsg);
       },
     });
   }
