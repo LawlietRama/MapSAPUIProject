@@ -1,4 +1,4 @@
-sap.ui.define(["sap/ui/core/ComponentContainer"], function (XMLView) {
+sap.ui.define(["sap/ui/core/mvc/XMLView"], function (XMLView) {
   "use strict";
 
   XMLView.create({

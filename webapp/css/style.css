@@ -11,3 +11,7 @@ html[dir="ltr"] #app .myCustomButton.sapMBtn {
     display: inline-block;
     font-weight: bold;
  }
+
+ #map {
+    height: 400px;
+ }

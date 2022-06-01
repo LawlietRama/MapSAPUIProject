@@ -1,40 +1,45 @@
 <mvc:View controllerName="btp.project1.controller.App"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Shell>
-        <App id="app">
-            <pages>
-                <Page id="page" title="{i18n>title}">
-                    <content>
-                        <Panel headerText="{i18n>title}" class="sapUiResponsiveMargin" width="auto">
-                            <content>
-                                <!-- <Button xmlns="sap.m" text="{i18n>showButton}" id="button" press="onClick" class="myCustomButton"/>
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <!-- <Shell> -->
+    <App id="app">
+        <pages>
+            <Page id="page" title="{i18n>title}">
+                <content>
+                    <core:HTML afterRendering="onRenderMap" content="&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;"></core:HTML>
+                    <Panel width="auto">
+                        <content>
+                            <!-- <Button xmlns="sap.m" text="{i18n>showButton}" id="button" press="onClick" class="myCustomButton"/>
                                 <Input value="{/recipient/name}" valueLiveUpdate="true" width="60%"/>
                                 <FormattedText htmlText="Hello {/recipient/name}" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/> -->
-                                <Label text="Titik Asal" labelFor="input-origin" />
-                                <Input id="input-origin" />
-                                <Label text="Titik Tujuan" labelFor="input-destination" />
-                                <Input id="input-destination" />
-                                <Button text="Hitung Jarak" press="onPress" ariaDescribedBy="acceptButtonDescription genericButtonDescription">
-                                    <layoutData>
-                                        <FlexItemData growFactor="1" />
-                                    </layoutData>
-                                </Button>
 
-                                <FormattedText htmlText="Hasil:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
-                                <FormattedText htmlText="Jarak dalam Km:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
-                                <FormattedText htmlText="Durasi:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
-                                <FormattedText htmlText="Dari:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
-                                <FormattedText htmlText="Menuju:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
-                            </content>
+                            <!-- <Label text="Titik Asal" labelFor="input-origin" />
+                            <Input id="input-origin" />
+                            <Label text="Titik Tujuan" labelFor="input-destination" />
+                            <Input id="input-destination" />
+                            <Button text="Hitung Jarak" press="onPress" ariaDescribedBy="acceptButtonDescription genericButtonDescription">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                            </Button> -->
 
-                        </Panel>
 
-                    </content>
-                </Page>
-            </pages>
 
-        </App>
-    </Shell>
+                            <!-- <FormattedText htmlText="Hasil:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
+                            <FormattedText htmlText="Jarak dalam Km:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
+                            <FormattedText htmlText="Durasi:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
+                            <FormattedText htmlText="Dari:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
+                            <FormattedText htmlText="Menuju:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/> -->
+                        </content>
+
+                    </Panel>
+
+                </content>
+            </Page>
+        </pages>
+
+    </App>
+    <!-- </Shell> -->
 </mvc:View>
