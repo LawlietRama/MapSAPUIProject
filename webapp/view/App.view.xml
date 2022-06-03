@@ -3,19 +3,40 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <!-- <Shell> -->
-    <App id="app">
-        <pages>
-            <Page id="page" title="{i18n>title}">
-                <content>
-                    <core:HTML afterRendering="onRenderMap" content="&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;"></core:HTML>
-                    <Panel width="auto">
-                        <content>
-                            <!-- <Button xmlns="sap.m" text="{i18n>showButton}" id="button" press="onClick" class="myCustomButton"/>
+    <Shell>
+        <App id="app">
+            <pages>
+                <Page id="page">
+                    <content>
+                        <Panel headerText="{i18n>title}" width="auto">
+                            <content>
+
+
+                                <!-- <core:HTML afterRendering="onRenderMap" content="&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;"></core:HTML> -->
+
+                                <Label text="Input Titik Awal" labelFor="input-origin" />
+                                <Input id="input-origin" placeholder="Titik Awal" />
+
+                                <Label text="Input Titik Akhir" labelFor="input-destination" />
+                                <Input id="input-destination" placeholder="Titik Akhir" />
+
+                                <Button text="Hitung Jarak" press="onCalculate" />
+
+                                <Text text="Hasil muncul di console" />
+
+                                <!-- <core:HTML content='&lt;div id=&quot;result&quot;&gt;&lt;p id=&quot;kilo&quot;&gt;-&lt;/p&gt;&lt;p id=&quot;hours&quot;&gt;-&lt;/p&gt;&lt;p id=&quot;minute&quot;&gt;-&lt;/p&gt;&lt;p id=&quot;from&quot;&gt;-&lt;/p&gt;&lt;p id=&quot;to&quot;&gt;-&lt;/p&gt;'>
+                                </core:HTML> -->
+
+                            </content>
+                        </Panel>
+
+                        <!-- <Panel width="auto">
+                        <content> -->
+                        <!-- <Button xmlns="sap.m" text="{i18n>showButton}" id="button" press="onClick" class="myCustomButton"/>
                                 <Input value="{/recipient/name}" valueLiveUpdate="true" width="60%"/>
                                 <FormattedText htmlText="Hello {/recipient/name}" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/> -->
 
-                            <!-- <Label text="Titik Asal" labelFor="input-origin" />
+                        <!-- <Label text="Titik Asal" labelFor="input-origin" />
                             <Input id="input-origin" />
                             <Label text="Titik Tujuan" labelFor="input-destination" />
                             <Input id="input-destination" />
@@ -27,19 +48,26 @@
 
 
 
-                            <!-- <FormattedText htmlText="Hasil:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
+                        <!-- <FormattedText htmlText="Hasil:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
                             <FormattedText htmlText="Jarak dalam Km:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
                             <FormattedText htmlText="Durasi:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
                             <FormattedText htmlText="Dari:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/>
                             <FormattedText htmlText="Menuju:" class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/> -->
-                        </content>
+                        <!-- </content>
 
-                    </Panel>
+                    </Panel> -->
 
-                </content>
-            </Page>
-        </pages>
+                        <Panel headerText="{i18n>title2}">
+                            <content>
+                                <Label text="Input Lokasi" labelFor="input-location" />
+                                <Input id="input-location" placeholder="Input Lokasi" />
+                            </content>
+                        </Panel>
 
-    </App>
-    <!-- </Shell> -->
+                    </content>
+                </Page>
+            </pages>
+
+        </App>
+    </Shell>
 </mvc:View>
