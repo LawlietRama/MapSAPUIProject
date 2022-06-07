@@ -15,6 +15,12 @@ sap.ui.define(
           recipient: {
             name: "World",
           },
+          result: {
+            distance: "",
+            durationText: "",
+            durationValue: "",
+            errorText: "",
+          },
         };
         var oModel = new JSONModel(oData);
         this.setModel(oModel);

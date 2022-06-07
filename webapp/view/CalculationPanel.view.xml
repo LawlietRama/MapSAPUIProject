@@ -13,14 +13,19 @@
                 &lt;strong&gt;Long: &lt;/strong&gt;&lt;span id=&quot;place-long&quot;&gt;&lt;/span&gt;
             &lt;/div&gt;"></core:HTML>
 
-            <Label text="Lokasi Asal" labelFor="from_places" />
-            <Input id="from_places" placeholder="Input Lokasi Asal" />
+            <Label text="Input Lokasi Asal" labelFor="input-origin" />
+            <Input id="input-origin" placeholder="Input Lokasi" />
 
-            <Label text="Lokasi Tujuan" labelFor="to_places" />
-            <Input id="to_places" placeholder="Input Lokasi Tujuan" />
-            <Button text="Hitung Jarak" press=".onCalculate"/>
+            <Label text="Input Lokasi Tujuan" labelFor="input-destination" />
+            <Input id="input-destination" placeholder="Input Lokasi" />
 
-            <Button text="Previous Page" press=".onPress"/>
+            <Button class="btn-normal" text="Hitung Jarak" press=".onCalculate"/>
+
+            <FormattedText htmlText="Result:{/result/errorText}&lt;br&gt; Jarak (km): {/result/distance}&lt;br&gt; Durasi: {/result/durationText}&lt;br&gt; Durasi (detik): {/result/durationValue}&lt;br&gt;" class="sapUiSmallMargin myCustomText"/>
+
+
+
+            <Button class="btn-normal" text="To the prev page" press=".onPress"/>
         </content>
     </Panel>
 </mvc:View>

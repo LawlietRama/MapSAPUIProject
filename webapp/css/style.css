@@ -9,3 +9,7 @@
 #map #infowindow-content {
     display: inline;
 }
+
+.btn-normal {
+    display: block;
+}
