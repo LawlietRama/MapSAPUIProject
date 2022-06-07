@@ -1,0 +1,26 @@
+<mvc:View controllerName="sap.ui.demo.walkthrough.controller.CalculationPanel"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+    <Panel headerText="{i18n>calculateDistancePanelTitle}" width="auto">
+        <content>
+            <core:HTML afterRendering="onRenderMap" content="&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;"></core:HTML>
+            <core:HTML content="&lt;div id=&quot;infowindow-content&quot;&gt;
+                &lt;span id=&quot;place-name&quot; class=&quot;title&quot;&gt;&lt;/span&gt;&lt;br /&gt;
+                &lt;strong&gt;ID Lokasi:&lt;/strong&gt; &lt;span id=&quot;place-id&quot;&gt;&lt;/span&gt;&lt;br /&gt;
+                &lt;span id=&quot;place-address&quot;&gt;&lt;/span&gt;&lt;br /&gt;
+                &lt;strong&gt;Lat: &lt;/strong&gt;&lt;span id=&quot;place-lat&quot;&gt;&lt;/span&gt;&lt;br /&gt;
+                &lt;strong&gt;Long: &lt;/strong&gt;&lt;span id=&quot;place-long&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;"></core:HTML>
+
+            <Label text="Lokasi Asal" labelFor="from_places" />
+            <Input id="from_places" placeholder="Input Lokasi Asal" />
+
+            <Label text="Lokasi Tujuan" labelFor="to_places" />
+            <Input id="to_places" placeholder="Input Lokasi Tujuan" />
+            <Button text="Hitung Jarak" press=".onCalculate"/>
+
+            <Button text="Previous Page" press=".onPress"/>
+        </content>
+    </Panel>
+</mvc:View>
