@@ -25,7 +25,39 @@ sap.ui.define(
             infowindow.open(map, marker);
           });
 
+          map.addListener("click", (mapsMouseEvent) => {
+            // Close the current InfoWindow.
+            infowindow.close();
+            marker.setVisible(false);
+
+            // // Create a new InfoWindow.
+            // infowindow = new google.maps.InfoWindow({
+            //   position: mapsMouseEvent.latLng,
+            // });
+
+            marker.setPosition(mapsMouseEvent.latLng);
+            marker.setVisible(true);
+
+            // infowindow.setContent(
+            //   JSON.stringify(mapsMouseEvent.latLng, null, 2)
+            // );
+            infowindow.open(map);
+
+            infowindowContent.children.namedItem("place-name").textContent =
+              "-";
+            infowindowContent.children.namedItem("place-id").textContent = "-";
+            infowindowContent.children.namedItem("place-address").textContent =
+              "-";
+            infowindowContent.children.namedItem("place-lat").textContent =
+              mapsMouseEvent.latLng.lat();
+            infowindowContent.children.namedItem("place-long").textContent =
+              mapsMouseEvent.latLng.lng();
+            infowindow.open(map, marker);
+          });
+
           autocomplete.addListener("place_changed", function () {
+            infowindow.close();
+            marker.setVisible(false);
             var place = autocomplete.getPlace();
             console.log(place);
             if (!place.geometry || !place.geometry.location) {
@@ -39,10 +71,11 @@ sap.ui.define(
             }
             // Set the position of the marker using the place ID and location.
             // @ts-ignore This should be in @typings/googlemaps.
-            marker.setPlace({
-              placeId: place.place_id,
-              location: place.geometry.location,
-            });
+            // marker.setPlace({
+            //   placeId: place.place_id,
+            //   location: place.geometry.location,
+            // });
+            marker.setPosition(place.geometry.location);
             marker.setVisible(true);
 
             infowindowContent.children.namedItem("place-name").textContent =
@@ -56,12 +89,6 @@ sap.ui.define(
             infowindowContent.children.namedItem("place-long").textContent =
               place.geometry.location.lng();
             infowindow.open(map, marker);
-            console.log("Detail titik: ");
-            console.log("Nama tempat: " + place.name);
-            console.log("Id tempat: " + place.place_id);
-            console.log("Alamat tempat: " + place.formatted_address);
-            console.log("Latitude tempat: " + place.geometry.location.lat());
-            console.log("Longitude tempat: " + place.geometry.location.lng());
           });
         },
         onShowHello: function () {
