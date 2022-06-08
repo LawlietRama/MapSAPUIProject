@@ -4,7 +4,7 @@
     xmlns:core="sap.ui.core">
     <Panel headerText="{i18n>calculateDistancePanelTitle}" width="auto">
         <content>
-            <core:HTML afterRendering="onRenderMap" content="&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;"></core:HTML>
+            <core:HTML afterRendering="onRenderMap" content="&lt;div id=&quot;map2&quot;&gt;&lt;/div&gt;"></core:HTML>
             <core:HTML content="&lt;div id=&quot;infowindow-content&quot;&gt;
                 &lt;span id=&quot;place-name&quot; class=&quot;title&quot;&gt;&lt;/span&gt;&lt;br /&gt;
                 &lt;strong&gt;ID Lokasi:&lt;/strong&gt; &lt;span id=&quot;place-id&quot;&gt;&lt;/span&gt;&lt;br /&gt;

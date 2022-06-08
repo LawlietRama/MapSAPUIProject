@@ -4,7 +4,7 @@ sap.ui.define(
     "use strict";
 
     var map;
-    var marker1, marker2, fromAddress, toAddress;
+    var marker1, marker2, fromAddress, toAddress, infowindow;
 
     return Controller.extend(
       "sap.ui.demo.walkthrough.controller.CalculationPanel",
@@ -22,18 +22,22 @@ sap.ui.define(
             fields: ["place_id", "geometry", "formatted_address", "name"],
           });
 
-          var infowindow = new google.maps.InfoWindow();
-          var infowindowContent = document.getElementById("infowindow-content");
-          infowindow.setContent(infowindowContent);
+          // infowindow = new google.maps.InfoWindow();
+          // var infowindowContent = document.getElementById("infowindow-content");
+          // infowindow.setContent(infowindowContent);
 
           marker1 = new google.maps.Marker({ map: map });
           marker1.addListener("click", function () {
-            infowindow.open(map, marker1);
+            // infowindow.open(map, marker1);
+            var place = autocomplete1.getPlace();
+            MessageToast.show(place.name);
           });
 
           marker2 = new google.maps.Marker({ map: map });
           marker2.addListener("click", function () {
-            infowindow.open(map, marker2);
+            // infowindow.open(map, marker2);
+            var place = autocomplete2.getPlace();
+            MessageToast.show(place.name);
           });
 
           autocomplete1.addListener("place_changed", function () {
@@ -56,17 +60,17 @@ sap.ui.define(
             });
             marker1.setVisible(true);
 
-            infowindowContent.children.namedItem("place-name").textContent =
-              place.name;
-            infowindowContent.children.namedItem("place-id").textContent =
-              place.place_id;
-            infowindowContent.children.namedItem("place-address").textContent =
-              place.formatted_address;
-            infowindowContent.children.namedItem("place-lat").textContent =
-              place.geometry.location.lat();
-            infowindowContent.children.namedItem("place-long").textContent =
-              place.geometry.location.lng();
-            infowindow.open(map, marker1);
+            // infowindowContent.children.namedItem("place-name").textContent =
+            //   place.name;
+            // infowindowContent.children.namedItem("place-id").textContent =
+            //   place.place_id;
+            // infowindowContent.children.namedItem("place-address").textContent =
+            //   place.formatted_address;
+            // infowindowContent.children.namedItem("place-lat").textContent =
+            //   place.geometry.location.lat();
+            // infowindowContent.children.namedItem("place-long").textContent =
+            //   place.geometry.location.lng();
+            // infowindow.open(map, marker1);
           });
           autocomplete2.addListener("place_changed", function () {
             var place = autocomplete2.getPlace();
@@ -88,17 +92,17 @@ sap.ui.define(
             });
             marker2.setVisible(true);
 
-            infowindowContent.children.namedItem("place-name").textContent =
-              place.name;
-            infowindowContent.children.namedItem("place-id").textContent =
-              place.place_id;
-            infowindowContent.children.namedItem("place-address").textContent =
-              place.formatted_address;
-            infowindowContent.children.namedItem("place-lat").textContent =
-              place.geometry.location.lat();
-            infowindowContent.children.namedItem("place-long").textContent =
-              place.geometry.location.lng();
-            infowindow.open(map, marker2);
+            // infowindowContent.children.namedItem("place-name").textContent =
+            //   place.name;
+            // infowindowContent.children.namedItem("place-id").textContent =
+            //   place.place_id;
+            // infowindowContent.children.namedItem("place-address").textContent =
+            //   place.formatted_address;
+            // infowindowContent.children.namedItem("place-lat").textContent =
+            //   place.geometry.location.lat();
+            // infowindowContent.children.namedItem("place-long").textContent =
+            //   place.geometry.location.lng();
+            // infowindow.open(map, marker2);
           });
         },
 
@@ -167,9 +171,7 @@ sap.ui.define(
               center: new google.maps.LatLng(-2.508742, 127.12085),
               zoom: 5,
             };
-            map = new google.maps.Map(document.getElementById("map"), mapProp);
-
-            marker1 = new google.maps.Marker({ position: mapProp.center });
+            map = new google.maps.Map(document.getElementById("map2"), mapProp);
 
             // marker1.setMap(map);
           }
@@ -177,6 +179,7 @@ sap.ui.define(
           initMap();
         },
         onPress: function (oEvent) {
+          // infowindow.close();
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("first");
         },

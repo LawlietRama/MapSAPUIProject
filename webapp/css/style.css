@@ -1,4 +1,4 @@
-#map {
+#map, #map2 {
     height: 400px;
  }
 
@@ -6,7 +6,7 @@
     display: none;
 }
 
-#map #infowindow-content {
+#map #infowindow-content, #map2 #infowindow-content {
     display: inline;
 }
 

@@ -4,7 +4,7 @@ sap.ui.define(
     "use strict";
 
     var map;
-    var marker;
+    var marker, infowindow;
 
     return Controller.extend(
       "sap.ui.demo.walkthrough.controller.DetailPointPanel",
@@ -16,7 +16,7 @@ sap.ui.define(
             fields: ["place_id", "geometry", "formatted_address", "name"],
           });
 
-          var infowindow = new google.maps.InfoWindow();
+          infowindow = new google.maps.InfoWindow();
           var infowindowContent = document.getElementById("infowindow-content");
           infowindow.setContent(infowindowContent);
 
@@ -88,6 +88,7 @@ sap.ui.define(
           initMap();
         },
         onPress: function (oEvent) {
+          infowindow.close();
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("second");
         },
