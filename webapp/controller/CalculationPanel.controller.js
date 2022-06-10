@@ -109,8 +109,6 @@ sap.ui.define(
           });
         },
 
-        onCalculate: function () {},
-
         onDrawRoute: function () {
           directionsRenderer.setMap(map);
           directionsService.route(
@@ -141,6 +139,7 @@ sap.ui.define(
               var origin = response.originAddresses[0];
               var destination = response.destinationAddresses[0];
               if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
+                directionsRenderer.setMap(null);
                 this.getView()
                   .getModel()
                   .setProperty(
