@@ -3,7 +3,7 @@ sap.ui.define(
   function (Controller, MessageToast) {
     "use strict";
 
-    var map;
+    var map, directionsService, directionsRenderer;
     var marker1, marker2, fromAddress, toAddress, infowindow;
 
     return Controller.extend(
@@ -41,6 +41,8 @@ sap.ui.define(
           });
 
           autocomplete1.addListener("place_changed", function () {
+            directionsRenderer.setMap(null);
+
             var place = autocomplete1.getPlace();
             fromAddress = place.formatted_address;
             if (!place.geometry || !place.geometry.location) {
@@ -73,6 +75,7 @@ sap.ui.define(
             // infowindow.open(map, marker1);
           });
           autocomplete2.addListener("place_changed", function () {
+            directionsRenderer.setMap(null);
             var place = autocomplete2.getPlace();
             toAddress = place.formatted_address;
             if (!place.geometry || !place.geometry.location) {
@@ -106,7 +109,23 @@ sap.ui.define(
           });
         },
 
-        onCalculate: function () {
+        onCalculate: function () {},
+
+        onDrawRoute: function () {
+          directionsRenderer.setMap(map);
+          directionsService.route(
+            {
+              origin: fromAddress,
+              destination: toAddress,
+              travelMode: "DRIVING",
+            },
+            function (result, status) {
+              if (status == "OK") {
+                directionsRenderer.setDirections(result);
+              }
+            }
+          );
+
           var service = new google.maps.DistanceMatrixService();
           service
             .getDistanceMatrix({
@@ -132,13 +151,19 @@ sap.ui.define(
                       destination +
                       " melalui darat"
                   );
+                this.getView().getModel().setProperty("/result/distance", "");
+                this.getView()
+                  .getModel()
+                  .setProperty("/result/durationText", "");
+                this.getView()
+                  .getModel()
+                  .setProperty("/result/durationValue", "");
               } else {
                 var distance = response.rows[0].elements[0].distance;
                 var duration = response.rows[0].elements[0].duration;
                 var distance_in_kilo = distance.value / 1000; // the kilom
                 var duration_text = duration.text;
                 var duration_value = duration.value;
-
                 this.getView()
                   .getModel()
                   .setProperty("/result/distance", distance_in_kilo.toFixed(2));
@@ -148,21 +173,9 @@ sap.ui.define(
                 this.getView()
                   .getModel()
                   .setProperty("/result/durationValue", duration_value);
-                console.log(duration_value);
                 this.getView().getModel().setProperty("/result/errorText", "");
               }
             });
-        },
-
-        onShowHello: function () {
-          // read msg from i18n model
-          var oBundle = this.getView().getModel("i18n").getResourceBundle();
-          var sRecipient = this.getView()
-            .getModel()
-            .getProperty("/recipient/name");
-          var sMsg = oBundle.getText("helloMsg", [sRecipient]);
-          // show message
-          MessageToast.show(sMsg);
         },
 
         onRenderMap: function () {
@@ -171,7 +184,11 @@ sap.ui.define(
               center: new google.maps.LatLng(-2.508742, 127.12085),
               zoom: 5,
             };
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
             map = new google.maps.Map(document.getElementById("map2"), mapProp);
+
+            directionsRenderer.setMap(map);
 
             // marker1.setMap(map);
           }

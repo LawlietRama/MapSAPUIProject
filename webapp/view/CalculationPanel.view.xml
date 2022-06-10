@@ -19,7 +19,7 @@
             <Label text="Input Lokasi Tujuan" labelFor="input-destination" />
             <Input id="input-destination" placeholder="Input Lokasi" />
 
-            <Button class="btn-normal" text="Hitung Jarak" press=".onCalculate"/>
+            <Button class="btn-normal" text="Hitung Jarak" press=".onDrawRoute"/>
 
             <FormattedText htmlText="Result:{/result/errorText}&lt;br&gt; Jarak (km): {/result/distance}&lt;br&gt; Durasi: {/result/durationText}&lt;br&gt; Durasi (detik): {/result/durationValue}&lt;br&gt;" class="sapUiSmallMargin myCustomText"/>
 
