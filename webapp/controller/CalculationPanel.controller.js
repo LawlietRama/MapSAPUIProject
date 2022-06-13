@@ -26,18 +26,60 @@ sap.ui.define(
           // var infowindowContent = document.getElementById("infowindow-content");
           // infowindow.setContent(infowindowContent);
 
-          marker1 = new google.maps.Marker({ map: map });
+          marker1 = new google.maps.Marker({
+            map: map,
+            draggable: true,
+          });
+
           marker1.addListener("click", function () {
             // infowindow.open(map, marker1);
             var place = autocomplete1.getPlace();
             MessageToast.show(place.name);
+            toggleBounce(marker1);
           });
 
-          marker2 = new google.maps.Marker({ map: map });
+          marker2 = new google.maps.Marker({
+            map: map,
+            draggable: true,
+          });
           marker2.addListener("click", function () {
             // infowindow.open(map, marker2);
             var place = autocomplete2.getPlace();
             MessageToast.show(place.name);
+            toggleBounce(marker2);
+          });
+
+          function toggleBounce(marker) {
+            if (marker.getAnimation() !== null) {
+              marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+          }
+
+          map.addListener("click", (mapsMouseEvent) => {
+            directionsRenderer.setMap(null);
+            marker2.setVisible(false);
+
+            marker2.setPosition(mapsMouseEvent.latLng);
+            marker2.setVisible(true);
+
+            toAddress = mapsMouseEvent.latLng;
+            input2.value = toAddress;
+          });
+
+          google.maps.event.addListener(marker1, "dragend", function (event) {
+            directionsRenderer.setMap(null);
+
+            fromAddress = event.latLng;
+            input1.value = fromAddress;
+          });
+
+          google.maps.event.addListener(marker2, "dragend", function (event) {
+            directionsRenderer.setMap(null);
+
+            toAddress = event.latLng;
+            input2.value = toAddress;
           });
 
           autocomplete1.addListener("place_changed", function () {
@@ -54,26 +96,10 @@ sap.ui.define(
               map.setCenter(place.geometry.location);
               map.setZoom(17);
             }
-            // Set the position of the marker using the place ID and location.
-            // @ts-ignore This should be in @typings/googlemaps.
-            marker1.setPlace({
-              placeId: place.place_id,
-              location: place.geometry.location,
-            });
+            marker1.setPosition(place.geometry.location);
             marker1.setVisible(true);
-
-            // infowindowContent.children.namedItem("place-name").textContent =
-            //   place.name;
-            // infowindowContent.children.namedItem("place-id").textContent =
-            //   place.place_id;
-            // infowindowContent.children.namedItem("place-address").textContent =
-            //   place.formatted_address;
-            // infowindowContent.children.namedItem("place-lat").textContent =
-            //   place.geometry.location.lat();
-            // infowindowContent.children.namedItem("place-long").textContent =
-            //   place.geometry.location.lng();
-            // infowindow.open(map, marker1);
           });
+
           autocomplete2.addListener("place_changed", function () {
             directionsRenderer.setMap(null);
             var place = autocomplete2.getPlace();
@@ -87,25 +113,8 @@ sap.ui.define(
               map.setCenter(place.geometry.location);
               map.setZoom(17);
             }
-            // Set the position of the marker using the place ID and location.
-            // @ts-ignore This should be in @typings/googlemaps.
-            marker2.setPlace({
-              placeId: place.place_id,
-              location: place.geometry.location,
-            });
+            marker2.setPosition(place.geometry.location);
             marker2.setVisible(true);
-
-            // infowindowContent.children.namedItem("place-name").textContent =
-            //   place.name;
-            // infowindowContent.children.namedItem("place-id").textContent =
-            //   place.place_id;
-            // infowindowContent.children.namedItem("place-address").textContent =
-            //   place.formatted_address;
-            // infowindowContent.children.namedItem("place-lat").textContent =
-            //   place.geometry.location.lat();
-            // infowindowContent.children.namedItem("place-long").textContent =
-            //   place.geometry.location.lng();
-            // infowindow.open(map, marker2);
           });
         },
 
@@ -144,11 +153,11 @@ sap.ui.define(
                   .getModel()
                   .setProperty(
                     "/result/errorText",
-                    " Tidak ada jalan dari " +
+                    " Tidak ditemukan rute dari " +
                       origin +
                       " menuju " +
                       destination +
-                      " melalui darat"
+                      "."
                   );
                 this.getView().getModel().setProperty("/result/distance", "");
                 this.getView()
@@ -184,18 +193,17 @@ sap.ui.define(
               zoom: 5,
             };
             directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+              suppressMarkers: true,
+            });
             map = new google.maps.Map(document.getElementById("map2"), mapProp);
 
             directionsRenderer.setMap(map);
-
-            // marker1.setMap(map);
           }
 
           initMap();
         },
         onPress: function (oEvent) {
-          // infowindow.close();
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("first");
         },
