@@ -2,7 +2,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
   "use strict";
 
   var map, directionsService, directionsRenderer, geocoder;
-  var marker1, marker2, fromAddress, toAddress, infowindow;
+  var marker1,
+    marker2,
+    fromAddress,
+    toAddress,
+    fromLatLng,
+    toLatLng,
+    infowindow;
 
   return Controller.extend(
     "sap.ui.demo.walkthrough.controller.CalculationPanel",
@@ -26,7 +32,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
         });
 
         marker1.addListener("click", function () {
-          infowindow.setContent(fromAddress);
+          infowindow.setContent(
+            "Alamat: " +
+              fromAddress +
+              "<br>Lat: " +
+              fromLatLng.lat() +
+              "<br>Lng: " +
+              fromLatLng.lng()
+          );
           infowindow.open(map, marker1);
           toggleBounce(marker1);
         });
@@ -36,7 +49,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
           draggable: true,
         });
         marker2.addListener("click", function () {
-          infowindow.setContent(toAddress);
+          infowindow.setContent(
+            "Alamat: " +
+              toAddress +
+              "<br>Lat: " +
+              toLatLng.lat() +
+              "<br>Lng: " +
+              toLatLng.lng()
+          );
           infowindow.open(map, marker2);
           toggleBounce(marker2);
         });
@@ -50,6 +70,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
         }
 
         map.addListener("click", (mapsMouseEvent) => {
+          infowindow.close();
           directionsRenderer.setMap(null);
           marker2.setVisible(false);
 
@@ -61,6 +82,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             .then((response) => {
               if (response.results[0]) {
                 toAddress = response.results[0].formatted_address;
+                toLatLng = mapsMouseEvent.latLng;
                 input2.value = toAddress;
               } else {
                 window.alert("Tidak menemukan alamat");
@@ -77,6 +99,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             .then((response) => {
               if (response.results[0]) {
                 fromAddress = response.results[0].formatted_address;
+                fromLatLng = event.latLng;
                 input1.value = fromAddress;
               } else {
                 window.alert("Tidak menemukan alamat");
@@ -101,6 +124,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             .then((response) => {
               if (response.results[0]) {
                 toAddress = response.results[0].formatted_address;
+                toLatLng = event.latLng;
                 input2.value = toAddress;
               } else {
                 window.alert("Tidak menemukan alamat");
@@ -114,6 +138,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
           var place = autocomplete1.getPlace();
           fromAddress = place.formatted_address;
+          fromLatLng = place.geometry.location;
           if (!place.geometry || !place.geometry.location) {
             return;
           }
@@ -131,6 +156,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
           directionsRenderer.setMap(null);
           var place = autocomplete2.getPlace();
           toAddress = place.formatted_address;
+          toLatLng = place.geometry.location;
           if (!place.geometry || !place.geometry.location) {
             return;
           }
